@@ -17,7 +17,7 @@ namespace PlayerLogic
         {
             if (other.TryGetComponent(out Building building))
             {
-                _inventoryController.AddResource(building.Resource, building.ResourcesCount);
+                _inventoryController.AddResource(building.ResourceType, building.ResourcesCount);
             }
         }
     }

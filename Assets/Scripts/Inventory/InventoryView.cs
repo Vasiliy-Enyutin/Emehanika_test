@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Enums;
 using TMPro;
 using UnityEngine;
 
@@ -8,38 +9,38 @@ namespace Inventory
     public class InventoryView : MonoBehaviour
     {
         [Serializable]
-        public class ResourceData
+        public class UiResourceData
         {
-            public BuildingResource Resource;
+            public ResourceType resourceType;
             public int Count;
             public TextMeshProUGUI TextMeshPro;
         }
 
         [SerializeField]
-        private List<ResourceData> _resourceDataList = new();
+        private List<UiResourceData> _resourceDataList = new();
 
-        private readonly Dictionary<BuildingResource, ResourceData> _resourceToResourceData = new();
+        private readonly Dictionary<ResourceType, UiResourceData> _resourceToResourceData = new();
 
         private void Awake()
         {
             InitializeResourceCounts();
         }
 
-        public void UpdateResourceText(BuildingResource resource, int count)
+        public void UpdateResourceCount(ResourceType resourceType, int count)
         {
-            if (!_resourceToResourceData.ContainsKey(resource))
+            if (!_resourceToResourceData.ContainsKey(resourceType))
             {
                 return;
             }
 
-            _resourceToResourceData[resource].Count += count;
-            _resourceToResourceData[resource].TextMeshPro.text = _resourceToResourceData[resource].Count.ToString();
+            _resourceToResourceData[resourceType].Count += count;
+            _resourceToResourceData[resourceType].TextMeshPro.text = _resourceToResourceData[resourceType].Count.ToString();
         }
         private void InitializeResourceCounts()
         {
-            foreach (ResourceData resourceData in _resourceDataList)
+            foreach (UiResourceData resourceData in _resourceDataList)
             {
-                _resourceToResourceData[resourceData.Resource] = resourceData;
+                _resourceToResourceData[resourceData.resourceType] = resourceData;
                 resourceData.TextMeshPro.text = resourceData.Count.ToString();
             }
         }

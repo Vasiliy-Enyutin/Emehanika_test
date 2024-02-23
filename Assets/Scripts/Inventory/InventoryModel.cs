@@ -1,27 +1,44 @@
 using System.Collections.Generic;
+using Enums;
 
 namespace Inventory
 {
     public class InventoryModel
     {
-        private readonly Dictionary<BuildingResource, int> _resourceToCount = new();
+        private readonly Dictionary<ResourceType, int> _resourceToCount = new();
         
         public InventoryModel()
         {
-            _resourceToCount.Add(BuildingResource.Meat, 0);
-            _resourceToCount.Add(BuildingResource.Coin, 0);
+            _resourceToCount.Add(ResourceType.Meat, 0);
+            _resourceToCount.Add(ResourceType.Coin, 0);
         }
         
-        public void AddResource(BuildingResource resource, int count)
+        public void AddResource(ResourceType resourceType, int count)
         {
-            if (_resourceToCount.ContainsKey(resource))
+            if (_resourceToCount.ContainsKey(resourceType))
             {
-                _resourceToCount[resource] += count;
+                _resourceToCount[resourceType] += count;
             }
             else
             {
-                _resourceToCount.Add(resource, count);
+                _resourceToCount.Add(resourceType, count);
             }
+        }
+
+        public bool TryGetResource(ResourceType resourceType, int count)
+        {
+            if (!_resourceToCount.ContainsKey(resourceType))
+            {
+                return false;
+            }
+            if (_resourceToCount[resourceType] < count)
+            {
+                return false;
+            }
+
+            _resourceToCount[resourceType] -= count;
+            return true;
+
         }
     }
 }

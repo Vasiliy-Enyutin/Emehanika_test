@@ -1,12 +1,16 @@
-﻿using UnityEngine;
+﻿using Enums;
+using UnityEngine;
 
 public class Building : MonoBehaviour
 {
         [SerializeField]
-        private BuildingResource _buildingResource;
+        private BuildingType _buildingType;
+        [SerializeField]
+        private ResourceType _resourceType;
         [SerializeField]
         private int _resourcesCount;
 
-        public BuildingResource Resource => _buildingResource;
+        public BuildingType BuildingType => _buildingType;
+        public ResourceType ResourceType => _resourceType;
         public int ResourcesCount => _resourcesCount;
 }

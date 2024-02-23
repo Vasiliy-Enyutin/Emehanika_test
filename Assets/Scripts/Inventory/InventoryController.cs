@@ -1,3 +1,4 @@
+using Enums;
 using UnityEngine;
 
 namespace Inventory
@@ -12,10 +13,21 @@ namespace Inventory
             _inventoryView = FindObjectOfType<InventoryView>();
         }
 
-        public void AddResource(BuildingResource resource, int count)
+        public void AddResource(ResourceType resourceType, int count)
         {
-            _inventoryModel.AddResource(resource, count);
-            _inventoryView.UpdateResourceText(resource, count);
+            _inventoryModel.AddResource(resourceType, count);
+            _inventoryView.UpdateResourceCount(resourceType, count);
+        }
+
+        public bool TryGetResource(ResourceType resourceType, int count)
+        {
+            if (!_inventoryModel.TryGetResource(resourceType, count))
+            {
+                return false;
+            }
+
+            _inventoryView.UpdateResourceCount(resourceType, -count);
+            return true;
         }
     }
 }
