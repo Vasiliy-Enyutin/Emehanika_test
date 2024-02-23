@@ -32,23 +32,23 @@ public class ButtonsHandler : MonoBehaviour
         
     }
 
-    private void OnBonusButtonClicked(BonusType bonusType, ResourceType resourceType, int cost)
+    private void OnBonusButtonClicked(BonusButton clickedBonusButton, BonusType bonusType, ResourceType resourceType, int cost)
     {
         if (bonusType == BonusType.AddBank)
         {
-            _bonusController.TryAddBuilding(BuildingType.Bank, resourceType, cost);
+            _bonusController.TryAddBuilding(clickedBonusButton, BuildingType.Bank, resourceType, cost);
         }
         else if (bonusType == BonusType.AddButchery)
         {
-            _bonusController.TryAddBuilding(BuildingType.Butchery, resourceType, cost);
+            _bonusController.TryAddBuilding(clickedBonusButton, BuildingType.Butchery, resourceType, cost);
         }
         else if (bonusType == BonusType.AddCharacter)
         {
-            _bonusController.TryAddCharacter();
+            _bonusController.TryAddCharacter(clickedBonusButton, resourceType, cost);
         }
         else if (bonusType == BonusType.SpeedUp)
         {
-            _bonusController.TryIncreaseSpeed();
+            _bonusController.TryIncreaseSpeed(resourceType, cost);
         }
     }
 }
