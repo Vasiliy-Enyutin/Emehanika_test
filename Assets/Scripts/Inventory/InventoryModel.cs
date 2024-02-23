@@ -5,7 +5,7 @@ namespace Inventory
 {
     public class InventoryModel
     {
-        private readonly Dictionary<ResourceType, int> _resourceToCount = new();
+        public readonly Dictionary<ResourceType, int> _resourceToCount = new();
         
         public InventoryModel()
         {

@@ -3,14 +3,13 @@ using UnityEngine;
 
 namespace PlayerLogic
 {
-    [RequireComponent(typeof(InventoryController))]
     public class PlayerCollisionDetector : MonoBehaviour
     {
         private InventoryController _inventoryController;
     
-        private void Awake()
+        private void Start()
         {
-            _inventoryController = GetComponent<InventoryController>();
+            _inventoryController = FindObjectOfType<InventoryController>();
         }
 
         private void OnTriggerEnter(Collider other)

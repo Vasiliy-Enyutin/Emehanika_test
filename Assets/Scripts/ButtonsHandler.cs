@@ -44,11 +44,12 @@ public class ButtonsHandler : MonoBehaviour
         }
         else if (bonusType == BonusType.AddCharacter)
         {
-            _bonusController.TryAddCharacter(clickedBonusButton, resourceType, cost);
+	        Debug.Log(cost);
+	        _bonusController.TryAddCharacter(clickedBonusButton, resourceType, cost);
         }
         else if (bonusType == BonusType.SpeedUp)
         {
-            _bonusController.TryIncreaseSpeed(resourceType, cost);
+            _bonusController.TryIncreaseSpeed(clickedBonusButton, resourceType, cost);
         }
     }
 }

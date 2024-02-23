@@ -13,6 +13,12 @@ namespace Inventory
             _inventoryView = FindObjectOfType<InventoryView>();
         }
 
+        private void Update()
+        {
+	        Debug.Log($"meat {_inventoryModel._resourceToCount[ResourceType.Meat]}");
+	        Debug.Log($"coin {_inventoryModel._resourceToCount[ResourceType.Coin]}");
+        }
+
         public void AddResource(ResourceType resourceType, int count)
         {
             _inventoryModel.AddResource(resourceType, count);

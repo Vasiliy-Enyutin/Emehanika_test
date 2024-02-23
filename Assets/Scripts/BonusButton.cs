@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Enums;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,9 +14,11 @@ public class BonusButton : MonoBehaviour, IPointerClickHandler
         [SerializeField]
         private ResourceType _resourceType;
         [SerializeField]
-        private int _cost;
+        private List<int> _costs;
         [SerializeField]
         private TextMeshProUGUI _ownText;
+
+        private int _currentCostStage = 0;
 
         public event Action<BonusButton, BonusType, ResourceType, int> OnButtonClicked;
 
@@ -24,18 +27,31 @@ public class BonusButton : MonoBehaviour, IPointerClickHandler
         private void Awake()
         {
 	        _button = GetComponent<Button>();
-	        _ownText.text = _cost.ToString();
+	        _ownText.text = _costs[_currentCostStage].ToString();
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
 	        if (_button.interactable)
 	        {
-		        OnButtonClicked?.Invoke(this, _bonusType, _resourceType, _cost);
+		        OnButtonClicked?.Invoke(this, _bonusType, _resourceType, _costs[_currentCostStage]);
 	        }
         }
 
-        public void ChangeStateToMax()
+        public void ChangeCostStage()
+        {
+	        _currentCostStage++;
+	        if (_currentCostStage < _costs.Count)
+	        {
+		        _ownText.text = _costs[_currentCostStage].ToString();
+	        }
+	        else
+	        {
+		        DisableButton();
+	        }
+        }
+
+        public void DisableButton()
         {
 	        _ownText.text = "MAX";
 	        _button.interactable = false;

@@ -40,10 +40,11 @@ public class BonusController : MonoBehaviour
 
 	    _playerCharacters.Add(Instantiate(_playerPrefab, Vector3.zero, Quaternion.identity).GetComponent<PlayerMovement>());
 	    _extraCharactersCount--;
-	    
+	    bonusButton.ChangeCostStage();
+
 	    if (_extraCharactersCount <= 0)
 	    {
-		    bonusButton.ChangeStateToMax();
+		    bonusButton.DisableButton();
 	    }
     }
 
@@ -64,17 +65,18 @@ public class BonusController : MonoBehaviour
 
                 building.SetActive(true);
                 disabledBuildings.Remove(building);
+                bonusButton.ChangeCostStage();
                 break;
             }
             
             if (disabledBuildings.Count <= 0)
             {
-				bonusButton.ChangeStateToMax();
+				bonusButton.DisableButton();
             }
         }
     }
 
-    public void TryIncreaseSpeed(ResourceType resourceType, int cost)
+    public void TryIncreaseSpeed(BonusButton bonusButton, ResourceType resourceType, int cost)
     {
 	    if (!_inventoryController.TryGetResource(resourceType, cost))
 	    {
@@ -85,5 +87,7 @@ public class BonusController : MonoBehaviour
 	    {
 		    player.IncreaseSpeedForever();
 	    }
+	    
+	    bonusButton.ChangeCostStage();
     }
 }
